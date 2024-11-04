@@ -1,0 +1,17 @@
+name: Notify QA Repo on Push
+
+on:
+  push:
+    branches:
+      - main # or specify any other branches you want to monitor
+
+jobs:
+  notify-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch Event to QA Repo
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: threecolts/3C.QA
+          event-type: dev-repo-update
